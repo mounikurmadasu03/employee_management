@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f7fc; 
+        } 
+ 
+        h1 { 
+            text-align: center; 
+            color: #302b63; 
+            margin-top: 40px; 
+        } 
+ 
+        table { 
+            width: 70%; 
+            margin: 40px auto; 
+            border-collapse: collapse; 
+            background-color: white; 
+        } 
+ 
+        th { 
+            background-color: #302b63; 
+            color: white; 
+            padding: 12px; 
+        } 
+ 
+        td { 
+            padding: 12px; 
+            text-align: center; 
+            border: 1px solid #ddd; 
+        } 
+ 
+        tr:hover { 
+            background-color: #a8edea;
+        }
+        .actions {
+            white-space: nowrap;
+        }
+
+        .edit-btn,
+        .delete-btn {
+
+            display: inline-block;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 8px 13px;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            margin-right: 5px;
+
+            transition: 0.3s;
+        }
+
+
+        /* ================= EDIT BUTTON ================= */
+
+        .edit-btn {
+            background-color: #00bcd4;
+        }
+
+        .edit-btn:hover {
+            background-color: #0097a7;
+        }
+
+
+        /* ================= DELETE BUTTON ================= */
+
+        .delete-btn {
+            background-color: #e53935;
+        }
+
+        .delete-btn:hover {
+            background-color: #c62828;
+        }
+        h1 {
+            text-align: center;
+
+            margin-bottom: 30px;
+
+            font-size: 32px;
+        }
+        /* ================= ADD EMPLOYEE ================= */
+
+        .add-section {
+            margin-bottom: 20px;
+        }
+
+        .add-btn {
+            display: inline-block;
+
+            background-color: #00bcd4;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 11px 20px;
+
+            border-radius: 5px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background-color: #0097a7;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="table-container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>employeename</th>
+                    <th>email</th>
+                    <th>phone</th>
+                    <th>department</th>
+                    <th>salary</th>
+                    <th>joining</th>
+                    <th>address</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if employees %}
+                  {% for employee in employees %}
+                    <tr>
+                     <td>{{employee["id"]}}</td>
+                     <td>{{employee["employeename"]}}</td>
+                     <td>{{employee["email"]}}</td>
+                     <td>{{employee["phone"]}}</td>
+                     <td>{{employee["department"]}}</td>
+                     <td>{{employee["salary"]}}</td>
+                     <td>{{employee["joining"]}}</td>
+                     <td>{{employee["address"]}}</td>
+                     <td class="actions">
+                        <a href="/edit-employee/{{employee['id']}}" class="edit-btn">Edit</a>
+                        <a href="/delete-employee/{{employee['id']}}"
+                                 class="delete-btn"
+                                 onclick="return confirm('Are you sure you want to delete this employee?')">delete </a>
+                     </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                   <tr>
+                    <td colspan="9" class="no-employee"> no employees found</td>
+                   </tr>
+                {% endif %}   
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
