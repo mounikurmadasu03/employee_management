@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search</title>
     <style>
         /* General page styling */
 body {
@@ -200,51 +200,57 @@ h1 {
       </style>
 </head>
 <body class="{{theme}}">
-    <div class="theme-buttons">
+    <div class ="theme-buttons">
        <a href="/set-theme/light">☀ Light</a>
        <a href="/set-theme/dark">🌙 Dark</a>
     </div> 
     <h1>search Employee</h1>
     <div class="search-box">
         <form action="/search" method="post">
-            <label>Employee Name:</label>
+            <label> employeename:</label>
             <input
               type="text"
-              name="search_name"
+              name="searchname"
               placeholder="Enter employee name"
-              value="{{search_name}}"
+              value="{{searchname}}"
               required
               >
-              <button type="submit">
+              <button type="submit" class="search-box button">
                 search
               </button>
         </form>
     </div>
     <!--search Result-->
-    {% if employees%}
+    {% if employees %}
     <div class="result">
         <table>
             <tr>
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Department</th>
+                <th>id</th>
+                <th>employeename</th>
+                <th>email</th>
                 <th>phone</th>
+                <th>department</th>
+                <th>salary</th>
+                <th>joining</th>
+                <th>address</th>
             </tr>
             {% for employee in employees %}
             <tr>
-                <td>{{employee[0]}}</td>
-                <td>{{employee[1]}}</td>
-                <td>{{employee[2]}}</td>
-                <td>{{employee[3]}}</td>
-                <td>{{employee[4]}}</td>
+                <td>{{ employee[0] }}</td>
+                <td>{{ employee[1] }}</td>
+                <td>{{ employee[2] }}</td>
+                <td>{{ employee[3] }}</td>
+                <td>{{ employee[4] }}</td>
+                <td>{{ employee[5] }}</td>
+                <td>{{ employee[6] }}</td>
+                <td>{{ employee[7] }}</td>
             </tr>
             {% endfor%}
         </table>
     </div>
-    {%elif search_name%}
-    <p class="no-result">
-        No employee found with the name "{{search_name}}"
+    {% elif searchname %}
+    <p>
+        No employee found with the name "{{searchname}}"
     </p>
     {% endif%}
 </body>
