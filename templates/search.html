@@ -206,7 +206,7 @@ h1 {
     </div> 
     <h1>search Employee</h1>
     <div class="search-box">
-        <form action="/search" method="post">
+        <form action="/search" method="POST">
             <label> employeename:</label>
             <input
               type="text"
@@ -215,12 +215,11 @@ h1 {
               value="{{searchname}}"
               required
               >
-              <button type="submit" class="search-box button">
+              <button type="submit">
                 search
               </button>
         </form>
     </div>
-    <!--search Result-->
     {% if employees %}
     <div class="result">
         <table>
@@ -252,6 +251,6 @@ h1 {
     <p>
         No employee found with the name "{{searchname}}"
     </p>
-    {% endif%}
+    {% endif %}
 </body>
 </html>

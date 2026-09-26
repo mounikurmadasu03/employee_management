@@ -330,23 +330,23 @@ def delete_employee(id):
 def employees_list():
     connection = get_database_connection()
     cursor=connection.cursor()
-    cursor.execute("select * from employees")
+    cursor.execute("SELECT *  FROM employees")
     employees=cursor.fetchall()
     connection.close()
     return render_template("employees.html",employees=employees)
-@app.route("/search",methods=["get","post"])
+@app.route("/search",methods=["GET","POST"])
 def search():
     employees= []
     searchname= ""
-    if request.method=="post":
+    if request.method=="POST":
         searchname=request.form.get("searchname","").strip()
         connection=get_database_connection()
         cursor=connection.cursor()
         cursor.execute("""
-                       select id ,employeename,email,department,phone,salary,joining,address
-                       from employees
-                       where employeename LIKE?
-                       """, ("%"+searchname+"%"))
+                       SELECT id ,employeename,email,department,phone,salary,joining,address
+                       FROM employees
+                       WHERE employeename LIKE ?
+                       """, ("%"+searchname+"%",))
         employees=cursor.fetchall()
         connection.close()
     theme=request.cookies.get("theme","light") 
