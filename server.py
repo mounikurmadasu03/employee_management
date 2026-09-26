@@ -1,4 +1,4 @@
-from flask import Flask,request,redirect,render_template,make_response,session
+from flask import Flask,request,redirect,render_template,make_response
 import sqlite3
 app=Flask(__name__)
 def get_database_connection():
@@ -38,8 +38,7 @@ def create_database():
      connection.close()   
 @app.route("/")
 def nav():
-    theme=request.cookies.get("theme","light")
-    return render_template("nav.html",theme=theme)
+    return render_template("nav.html")
 # Home page 
 @app.route("/home") 
 def home(): 
@@ -47,7 +46,6 @@ def home():
 #----register page-----
 @app.route("/register",methods=["get"])
 def register_page():
-    
     return render_template("register.html")
 
 @app.route("/register",methods=["post"])
@@ -146,7 +144,7 @@ def edit_employee_page(id):
     if employee is None:
         return"""
         <h2>employee not found</h2>
-        <a href="/employees>
+        <a href="/employees">
         Back to employees
         </a>"""
     return render_template("edit-employee.html",employee=employee)
@@ -189,26 +187,50 @@ def delete_employee(id):
     connection.commit()
     connection.close()
     return redirect("/employees")
+# ----Search Employee----- 
+@app.route("/search", methods=["GET", "POST"]) 
+def search(): 
+ 
+    employees = [] 
+    search_name = "" 
+ 
+    if request.method == "POST": 
+ 
+        search_name = request.form["search_name"] 
+ 
+        connection = sqlite3.connect("users.db") 
+        cursor = connection.cursor() 
+ 
+        cursor.execute(""" 
+            SELECT id, fullname, email, department, phone 
+            FROM employees 
+            WHERE fullname LIKE ? 
+        """, ("%" + search_name + "%",)) 
+ 
+        employees = cursor.fetchall() 
+ 
+        connection.close() 
+ 
+    return render_template( 
+        "search.html", 
+        employees=employees, 
+        search_name=search_name 
+    )
+    #-----set themes-------
 @app.route("/set-theme/<theme>")
 def set_theme(theme):
-
-    if theme not in ["light", "dark"]:
-
-        theme = "light"
-
-    previous_page = request.referrer or "/"
-
-    response = make_response(
-        redirect(previous_page)
-    )
-
+    if theme not in["light","dark"]:
+       theme="light"
+    previous_page=request.referrer or"/"
+    response=make_response(
+           redirect(previous_page)
+       )
     response.set_cookie(
-        "theme",
-        theme,
-        max_age=60 * 60 * 24 * 365
-    )
-
-    return response
+               "theme",
+               theme,
+               max_age=60*60*24*365
+               )
+    return response   
 
 if __name__=="__main__":
     create_database()

@@ -28,32 +28,42 @@
             text-decoration: none;
             font-size: 16px;
         }
-
-
-        /*navigation*/
+        /* ---logo---*/
+        .logo{
+            color:#ffffff;
+            font-size: 22px;
+            font-weight:bold;
+        }
+       /*navigation*/
         .nav-links {
             display: flex;
             align-items: center;
             list-style: none;
             gap: 20px;
         }
+        .nav-links a{
+            color:#ffffff;
+            text-decoration:none;
+            font-size: 16px;
+            padding:8px 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
 
         .nav-links a:hover {
             color: rgb(101, 197, 138);
         }
-
-        /*login.btn*/
-        .login-btn {
-           background-color: #00a2d4;
-            padding: 8px 15px;
+        /*--- log out---*/
+        .logout-button {
+            background-color: #00bcd4;
+            padding: 8px 14px;
             border-radius: 5px;
         }
 
-        .login-btn:hover {
-            background-color: #00add4;
+        .logout-button:hover {
+            background-color:#4300a7;
             color: white !important;
         }
-
         /*register button*/
         .register-btn {
             background-color: #00bcd4;
@@ -61,7 +71,7 @@
             border-radius: 5px;
         }
 
-        .register-button:hover {
+        .register-btn:hover {
             background-color: #4300a7;
             color: white !important;
         }
@@ -77,67 +87,108 @@
 
             margin-right: 20px;
         }
-        /* -----theme buttons----*/
-        .theme-buttons{
-            display: flex;
-            gap:10px;
-            margin-right: 30px;
-        }
-         .theme-buttons a {
-            color: white;
-            text-decoration: none;
-            border: 1px solid #00bcd4;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-         .theme-buttons a:hover {
-            background-color: #00bcd4;
-        }
-        /* ----light mode-----*/
+        /* light mode*/
         body.light {
             background-color: #f5f5f5;
             color: #222;
         }
 
-        body.light .content {
+        body.light .container {
             background-color: white;
             color: #222;
         }
 
-        body.light .content h1 {
+        body.light h1 {
             color: #222;
         }
 
-        body.light .content p {
-            color: #555;
+        body.light input,
+        body.light select,
+        body.light textarea {
+            background-color: white;
+            color: #222;
+            border: 1px solid #ccc;
         }
-        /*--- dark mode---*/
+
+
+        /* darkmode */
+
         body.dark {
             background-color: #121212;
             color: white;
         }
 
-        body.dark .content {
+        body.dark .container {
             background-color: #1e1e1e;
             color: white;
+
+            box-shadow:
+                0 2px 10px rgba(255, 255, 255, 0.08);
         }
 
-        body.dark .content h1 {
+        body.dark h1 {
             color: white;
         }
 
-        body.dark .content p {
-            color: #ddd;
+        body.dark label {
+            color: white;
         }
 
+        body.dark input,
+        body.dark select,
+        body.dark textarea {
+            background-color: #2b2b2b;
+            color: white;
+            border: 1px solid #555;
+        }
 
+        body.dark input::placeholder,
+        body.dark textarea::placeholder {
+            color: #aaa;
+        }
 
+        body.dark option {
+            background-color: #2b2b2b;
+            color: white;
+        }
+        /* --THEME BUTTONS---- */
+
+        .theme-buttons {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-right: 5px;
+        }
+
+        .theme-buttons a {
+            color: rgb(25, 206, 190);
+             
+
+            text-decoration: none;
+
+            border: 1px solid #00bcd4;
+
+            padding: 8px 12px;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .theme-buttons a:hover {
+            background-color: #00bcd4;
+
+            color: white;
+        }
     </style>
 </head>
 
-<body>
+<body class="{{theme}}">
     <nav class="navbar">
         <div class="logo">
             employee management system
@@ -175,15 +226,19 @@
                 </a>
             </li>
             <li>
-                <a href="/login">
-                    <button class="login-btn" type="submit">login</button>
-                </a>
-            </li>
+                <a href="/logout">
+              <button class="logout-button" type="submit">Logout</button>
+            </a>
+             </li>
 
         </ul>
     </nav>
     <div class="content">
-        <h1> welcome to employee management system</h1>
+        {% if fullname %}
+           <h1> welcome ,{{fullname}}!</h1>
+        {% else %}
+           <h1> welcome to employee management system</h1>
+        {% endif %}   
         <p>manage your employee easely</p>
     </div>
 </body>
